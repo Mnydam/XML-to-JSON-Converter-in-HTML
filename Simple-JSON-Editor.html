@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple JSON Editor</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+
+    .header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 30px;
+      text-align: center;
+      border-radius: 12px 12px 0 0;
+    }
+
+    .header h1 {
+      font-size: 2rem;
+      margin-bottom: 5px;
+    }
+
+    .toolbar {
+      background: #f8f9fa;
+      padding: 20px;
+      border-bottom: 2px solid #e5e7eb;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-primary { background: #667eea; color: white; }
+    .btn-primary:hover { background: #5568d3; }
+    .btn-success { background: #10b981; color: white; }
+    .btn-success:hover { background: #059669; }
+    .btn-secondary { background: #6b7280; color: white; }
+    .btn-secondary:hover { background: #4b5563; }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .tooltip {
+      position: relative;
+      display: inline-block;
+    }
+
+    .tooltip .tooltiptext {
+      visibility: hidden;
+      width: 220px;
+      background-color: #1f2937;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 10px;
+      position: absolute;
+      z-index: 1000;
+      bottom: 125%;
+      left: 50%;
+      margin-left: -110px;
+      opacity: 0;
+      transition: opacity 0.3s;
+      font-size: 0.85rem;
+      font-weight: normal;
+      line-height: 1.4;
+    }
+
+    .tooltip .tooltiptext::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: #1f2937 transparent transparent transparent;
+    }
+
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .content {
+      padding: 30px;
+      max-height: 70vh;
+      overflow-y: auto;
+    }
+
+    .stats-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: white;
+      padding: 15px 20px;
+      margin: -30px -30px 20px -30px;
+      border-bottom: 3px solid #667eea;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 15px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-item .label {
+      font-size: 0.75rem;
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 600;
+    }
+
+    .stat-item .value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #667eea;
+      margin-top: 3px;
+    }
+
+    .record-card {
+      background: #f9fafb;
+      border: 2px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .record-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #e5e7eb;
+    }
+
+    .record-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #374151;
+    }
+
+    .field-group {
+      margin-bottom: 15px;
+    }
+
+    .field-group label {
+      display: block;
+      font-weight: 600;
+      color: #4b5563;
+      margin-bottom: 5px;
+      font-size: 0.9rem;
+    }
+
+    .field-group input,
+    .field-group textarea {
+      width: 100%;
+      padding: 10px;
+      border: 2px solid #e5e7eb;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      font-family: inherit;
+    }
+
+    .field-group input:focus,
+    .field-group textarea:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+
+    .field-group textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    .alert {
+      padding: 15px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      font-weight: 500;
+    }
+
+    .alert-success {
+      background: #d1fae5;
+      color: #065f46;
+      border-left: 4px solid #10b981;
+    }
+
+    .alert-error {
+      background: #fee2e2;
+      color: #991b1b;
+      border-left: 4px solid #ef4444;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: #6b7280;
+    }
+
+    .empty-state .icon {
+      font-size: 3rem;
+      margin-bottom: 15px;
+    }
+
+    .json-view {
+      background: #1f2937;
+      color: #10b981;
+      padding: 20px;
+      border-radius: 8px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.85rem;
+      max-height: 500px;
+      overflow: auto;
+      white-space: pre-wrap;
+    }
+
+    .section-divider {
+      margin: 30px 0;
+      border-top: 2px solid #e5e7eb;
+    }
+
+    .info-text {
+      color: #6b7280;
+      font-size: 0.9rem;
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>📝 Simple JSON Editor</h1>
+      <p>Load, Edit, Save - Keep it Simple!</p>
+    </div>
+
+    <div class="toolbar">
+      <div class="tooltip">
+        <button class="btn btn-primary" onclick="document.getElementById('fileInput').click()">
+          📁 Load File
+        </button>
+        <span class="tooltiptext">Select a JSON file from your computer to edit</span>
+      </div>
+      <input type="file" id="fileInput" accept=".json" style="display: none;">
+
+      <div class="tooltip">
+        <button class="btn btn-success" id="saveBtn" disabled onclick="saveChanges()">
+          💾 Save Changes
+        </button>
+        <span class="tooltiptext">Mark your edits as saved (ready for download)</span>
+      </div>
+
+      <div class="tooltip">
+        <button class="btn btn-secondary" id="downloadBtn" disabled onclick="downloadFile()">
+          ⬇️ Download
+        </button>
+        <span class="tooltiptext">Download edited file to your Downloads folder</span>
+      </div>
+
+      <div class="tooltip">
+        <button class="btn btn-secondary" id="viewJsonBtn" disabled onclick="viewRawJson()">
+          👁️ View JSON
+        </button>
+        <span class="tooltiptext">Edit the raw JSON code directly</span>
+      </div>
+
+      <a href="help.html" target="_blank" class="btn btn-secondary" style="text-decoration: none;">
+        ❓ Help
+      </a>
+
+      <div style="margin-left: auto; color: #6b7280;" id="filename"></div>
+    </div>
+
+    <div class="content">
+      <div id="alertContainer"></div>
+      
+      <div id="editorContainer">
+        <div class="empty-state">
+          <div class="icon">📄</div>
+          <h3>No File Loaded</h3>
+          <p>Click "Load File" to start editing</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let jsonData = null;
+    let originalFilename = 'data.json';
+    let isModified = false;
+
+    const fileInput = document.getElementById('fileInput');
+    const saveBtn = document.getElementById('saveBtn');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const viewJsonBtn = document.getElementById('viewJsonBtn');
+    const alertContainer = document.getElementById('alertContainer');
+    const editorContainer = document.getElementById('editorContainer');
+    const filenameDisplay = document.getElementById('filename');
+
+    // Check if data was sent from XML converter - check immediately on load
+    function checkForConverterData() {
+      const converterData = localStorage.getItem('jsonEditorData');
+      
+      if (converterData) {
+        try {
+          const data = JSON.parse(converterData);
+          
+          // Parse the JSON content
+          jsonData = JSON.parse(data.content);
+          
+          originalFilename = data.filename;
+          isModified = false;
+          
+          filenameDisplay.textContent = data.filename + ' (from converter)';
+          filenameDisplay.style.color = '#667eea';
+          
+          saveBtn.disabled = false;
+          downloadBtn.disabled = false;
+          viewJsonBtn.disabled = false;
+          
+          renderEditor();
+          
+          showAlert('success', `✓ Loaded from XML Converter: ${data.filename}`);
+          
+          // Store converter ID for sending back
+          window.converterId = data.converterId;
+          
+          // Clear the data
+          localStorage.removeItem('jsonEditorData');
+          
+          return true; // Data was found
+        } catch (error) {
+          console.error('Failed to load converter data:', error);
+          showAlert('error', '✗ Failed to load data from converter: ' + error.message);
+        }
+      }
+      return false; // No data found
+    }
+
+    // Run immediately
+    const foundImmediately = checkForConverterData();
+    
+    // If not found immediately, poll for it
+    if (!foundImmediately) {
+      let pollCount = 0;
+      const pollInterval = setInterval(() => {
+        if (checkForConverterData()) {
+          clearInterval(pollInterval);
+        }
+        pollCount++;
+        if (pollCount >= 20) { // Poll for 2 seconds (20 * 100ms)
+          clearInterval(pollInterval);
+        }
+      }, 100);
+    }
+
+    fileInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      originalFilename = file.name;
+      const reader = new FileReader();
+      
+      reader.onload = (e) => {
+        try {
+          jsonData = JSON.parse(e.target.result);
+          isModified = false;
+          
+          showAlert('success', `✓ Loaded: ${file.name}`);
+          filenameDisplay.textContent = file.name;
+          
+          saveBtn.disabled = false;
+          downloadBtn.disabled = false;
+          viewJsonBtn.disabled = false;
+          
+          renderEditor();
+        } catch (error) {
+          let errorMsg = `✗ Cannot load file: ${error.message}`;
+          
+          // Provide helpful hints based on error type
+          if (error.message.includes('Unexpected token')) {
+            errorMsg += '<br><br><strong>Tip:</strong> Your file has invalid JSON syntax. Common causes:<br>• Missing comma between items<br>• Extra comma at end of list<br>• Missing closing bracket } or ]<br>• Unquoted text values';
+          } else if (error.message.includes('JSON')) {
+            errorMsg += '<br><br><strong>Tip:</strong> Make sure your file is a valid .json file, not a text file renamed with .json extension.';
+          }
+          
+          showAlert('error', errorMsg);
+        }
+      };
+      
+      reader.readAsText(file);
+    });
+
+    function renderEditor() {
+      if (!jsonData) return;
+
+      let html = renderStats();
+      html += '<div class="info-text">Edit the fields below. Changes are tracked automatically.</div>';
+
+      // Check if it's an array at root level
+      if (Array.isArray(jsonData)) {
+        html += renderArray(jsonData, 'root');
+      } 
+      // Check if it's an object with arrays inside
+      else if (typeof jsonData === 'object') {
+        for (let key in jsonData) {
+          const value = jsonData[key];
+          
+          if (Array.isArray(value)) {
+            html += `<h3 style="margin: 20px 0 10px 0; color: #374151;">📂 ${key} (${value.length} items)</h3>`;
+            html += renderArray(value, key);
+          } else if (typeof value === 'object' && value !== null) {
+            html += `<h3 style="margin: 20px 0 10px 0; color: #374151;">📄 ${key}</h3>`;
+            html += renderObject(value, key);
+          } else {
+            html += renderField(key, value, key);
+          }
+        }
+      }
+
+      editorContainer.innerHTML = html;
+    }
+
+    function renderStats() {
+      const stats = calculateStats(jsonData);
+      
+      return `
+        <div class="stats-bar">
+          <div class="stat-item">
+            <div class="label">Total Records</div>
+            <div class="value">${stats.totalRecords}</div>
+          </div>
+          <div class="stat-item">
+            <div class="label">Total Fields</div>
+            <div class="value">${stats.totalFields}</div>
+          </div>
+          <div class="stat-item">
+            <div class="label">Arrays</div>
+            <div class="value">${stats.arrays}</div>
+          </div>
+          <div class="stat-item">
+            <div class="label">Objects</div>
+            <div class="value">${stats.objects}</div>
+          </div>
+          <div class="stat-item">
+            <div class="label">Status</div>
+            <div class="value" style="color: ${isModified ? '#f59e0b' : '#10b981'}; font-size: 1.2rem;">
+              ${isModified ? '⚠️ Modified' : '✓ Saved'}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function calculateStats(obj, stats = null) {
+      if (!stats) {
+        stats = {
+          totalRecords: 0,
+          totalFields: 0,
+          arrays: 0,
+          objects: 0
+        };
+      }
+
+      if (Array.isArray(obj)) {
+        stats.arrays++;
+        stats.totalRecords += obj.length;
+        obj.forEach(item => calculateStats(item, stats));
+      } else if (typeof obj === 'object' && obj !== null) {
+        stats.objects++;
+        Object.keys(obj).forEach(key => {
+          stats.totalFields++;
+          calculateStats(obj[key], stats);
+        });
+      }
+
+      return stats;
+    }
+
+    function renderArray(arr, arrayName, isNested = false) {
+      let html = '';
+      
+      arr.forEach((item, index) => {
+        const cardStyle = isNested ? 'background: white; border: 1px solid #e5e7eb; padding: 15px; margin-bottom: 10px; border-radius: 6px;' : '';
+        const titleSize = isNested ? '1rem' : '1.2rem';
+        
+        html += `
+          <div class="record-card" style="${cardStyle}">
+            <div class="record-header">
+              <div class="record-title" style="font-size: ${titleSize};">${isNested ? 'Item' : 'Record'} ${index + 1}</div>
+              <button class="btn btn-secondary" onclick="deleteRecord('${arrayName}', ${index})" style="padding: 6px 12px; font-size: 0.85rem;">
+                🗑️ Delete
+              </button>
+            </div>
+            ${renderObject(item, `${arrayName}.${index}`)}
+          </div>
+        `;
+      });
+
+      html += `
+        <div style="margin-bottom: ${isNested ? '10px' : '30px'};">
+          <button class="btn btn-secondary" onclick="addRecord('${arrayName}')" style="padding: ${isNested ? '6px 12px' : '10px 20px'}; font-size: ${isNested ? '0.85rem' : '0.95rem'};">
+            ➕ Add New ${isNested ? 'Item' : 'Record'}
+          </button>
+        </div>
+      `;
+
+      return html;
+    }
+
+    function renderObject(obj, path) {
+      let html = '';
+      
+      for (let key in obj) {
+        const value = obj[key];
+        const fullPath = `${path}.${key}`;
+        
+        if (Array.isArray(value)) {
+          // Check if it's an array of objects
+          if (value.length > 0 && typeof value[0] === 'object' && !Array.isArray(value[0])) {
+            html += `<div style="margin: 15px 0;">
+              <label style="font-weight: 600; color: #374151; display: block; margin-bottom: 10px;">
+                ${key} (${value.length} items)
+              </label>
+              <div style="border-left: 3px solid #667eea; padding-left: 15px;">
+                ${renderArray(value, fullPath)}
+              </div>
+            </div>`;
+          } else {
+            // Simple array (strings, numbers)
+            html += `<div class="field-group">
+              <label>${key}:</label>
+              <input type="text" value="${value.join(', ')}" 
+                     onchange="updateArrayField('${fullPath}', this.value)"
+                     oninput="markModified()">
+            </div>`;
+          }
+        } else if (typeof value === 'object' && value !== null) {
+          html += `<fieldset style="border: 1px solid #e5e7eb; padding: 10px; margin: 10px 0; border-radius: 6px;">
+            <legend style="font-weight: 600; color: #667eea;">${key}</legend>
+            ${renderObject(value, fullPath)}
+          </fieldset>`;
+        } else {
+          html += renderField(key, value, fullPath);
+        }
+      }
+      
+      return html;
+    }
+
+    function renderField(label, value, path) {
+      const type = typeof value;
+      
+      if (type === 'boolean') {
+        return `<div class="field-group">
+          <label>
+            <input type="checkbox" ${value ? 'checked' : ''} 
+                   onchange="updateField('${path}', this.checked)"
+                   oninput="markModified()">
+            ${label}
+          </label>
+        </div>`;
+      }
+      
+      if (type === 'number') {
+        return `<div class="field-group">
+          <label>${label}:</label>
+          <input type="number" value="${value}" 
+                 onchange="updateField('${path}', parseFloat(this.value))"
+                 oninput="markModified()">
+        </div>`;
+      }
+      
+      if (typeof value === 'string' && value.length > 60) {
+        return `<div class="field-group">
+          <label>${label}:</label>
+          <textarea onchange="updateField('${path}', this.value)"
+                    oninput="markModified()">${value}</textarea>
+        </div>`;
+      }
+      
+      return `<div class="field-group">
+        <label>${label}:</label>
+        <input type="text" value="${value}" 
+               onchange="updateField('${path}', this.value)"
+               oninput="markModified()">
+      </div>`;
+    }
+
+    function updateField(path, value) {
+      const keys = path.split('.');
+      let current = jsonData;
+      
+      for (let i = 0; i < keys.length - 1; i++) {
+        current = current[keys[i]];
+      }
+      
+      current[keys[keys.length - 1]] = value;
+      markModified();
+    }
+
+    function updateArrayField(path, value) {
+      const arr = value.split(',').map(s => s.trim());
+      updateField(path, arr);
+    }
+
+    function deleteRecord(arrayPath, index) {
+      if (!confirm(`Delete item ${index + 1}?`)) return;
+      
+      const arr = getByPath(jsonData, arrayPath);
+      arr.splice(index, 1);
+      
+      markModified();
+      renderEditor();
+      showAlert('success', '✓ Item deleted');
+    }
+
+    function addRecord(arrayPath) {
+      const arr = getByPath(jsonData, arrayPath);
+      
+      if (arr.length > 0) {
+        // Clone first record as template
+        arr.push(JSON.parse(JSON.stringify(arr[0])));
+      } else {
+        arr.push({});
+      }
+      
+      markModified();
+      renderEditor();
+      showAlert('success', '✓ New item added');
+    }
+
+    function getByPath(obj, path) {
+      if (path === 'root') return obj;
+      
+      const keys = path.split('.');
+      let current = obj;
+      
+      for (let key of keys) {
+        if (key && current) {
+          current = current[key];
+        }
+      }
+      
+      return current;
+    }
+
+    function markModified() {
+      if (!isModified) {
+        isModified = true;
+        filenameDisplay.textContent = originalFilename + ' (modified)';
+        filenameDisplay.style.color = '#f59e0b';
+      }
+    }
+
+    function saveChanges() {
+      isModified = false;
+      filenameDisplay.textContent = originalFilename;
+      filenameDisplay.style.color = '#6b7280';
+      
+      // If opened from converter, send data back
+      if (window.converterId !== undefined) {
+        const savedData = {
+          converterId: window.converterId,
+          content: JSON.stringify(jsonData, null, 2)
+        };
+        localStorage.setItem('jsonEditorSaved', JSON.stringify(savedData));
+        showAlert('success', '✓ Changes saved! Data will sync back to converter.');
+      } else {
+        showAlert('success', '✓ Changes saved! Click Download to save file.');
+      }
+    }
+
+    function downloadFile() {
+      const dataStr = JSON.stringify(jsonData, null, 2);
+      const blob = new Blob([dataStr], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = originalFilename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showAlert('success', `✓ Downloaded: ${originalFilename}`);
+    }
+
+    function viewRawJson() {
+      const jsonStr = JSON.stringify(jsonData, null, 2);
+      editorContainer.innerHTML = `
+        <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+          <button class="btn btn-success" onclick="applyJsonChanges()">
+            ✓ Apply Changes
+          </button>
+          <button class="btn btn-secondary" onclick="renderEditor()">
+            ← Cancel
+          </button>
+        </div>
+        <textarea id="jsonTextarea" style="width: 100%; min-height: 500px; padding: 20px; font-family: 'Courier New', monospace; font-size: 0.9rem; border: 2px solid #e5e7eb; border-radius: 8px; background: #1f2937; color: #10b981;">${jsonStr}</textarea>
+      `;
+    }
+
+    function applyJsonChanges() {
+      const textarea = document.getElementById('jsonTextarea');
+      try {
+        const newData = JSON.parse(textarea.value);
+        jsonData = newData;
+        markModified();
+        renderEditor();
+        showAlert('success', '✓ JSON changes applied successfully! Your edits are now shown in the card interface.');
+      } catch (error) {
+        let errorMsg = `✗ Cannot apply changes: ${error.message}`;
+        
+        // Extract line number if available
+        const match = error.message.match(/position (\d+)/);
+        if (match) {
+          const position = parseInt(match[1]);
+          const lines = textarea.value.substring(0, position).split('\n');
+          const lineNum = lines.length;
+          errorMsg = `✗ JSON Error on line ${lineNum}: ${error.message}`;
+        }
+        
+        errorMsg += '<br><br><strong>Common fixes:</strong><br>• Add missing comma between items<br>• Remove extra comma before } or ]<br>• Put quotes around property names<br>• Check for unclosed brackets';
+        
+        showAlert('error', errorMsg);
+      }
+    }
+
+    function showAlert(type, message) {
+      const alertClass = type === 'success' ? 'alert-success' : 'alert-error';
+      alertContainer.innerHTML = `<div class="alert ${alertClass}">${message}</div>`;
+      setTimeout(() => { alertContainer.innerHTML = ''; }, 4000);
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    window.addEventListener('beforeunload', (e) => {
+      if (isModified) {
+        e.preventDefault();
+        e.returnValue = 'Unsaved changes!';
+        return e.returnValue;
+      }
+    });
+  </script>
+</body>
+</html>

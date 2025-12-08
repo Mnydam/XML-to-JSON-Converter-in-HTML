@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>XML to JSON Converter - Help Guide</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      overflow: hidden;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 40px;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    .content {
+      padding: 40px;
+    }
+
+    .section {
+      margin-bottom: 50px;
+    }
+
+    .section h2 {
+      color: #667eea;
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 3px solid #e5e7eb;
+    }
+
+    .section h3 {
+      color: #374151;
+      font-size: 1.3rem;
+      margin: 25px 0 15px 0;
+    }
+
+    .step {
+      background: #f9fafb;
+      padding: 20px;
+      border-left: 4px solid #667eea;
+      margin-bottom: 15px;
+      border-radius: 4px;
+    }
+
+    .step strong {
+      color: #667eea;
+      font-size: 1.1rem;
+    }
+
+    .tip {
+      background: #dbeafe;
+      border-left: 4px solid #3b82f6;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 4px;
+    }
+
+    .tip strong {
+      color: #1e40af;
+      font-size: 1.1rem;
+    }
+
+    .warning {
+      background: #fee2e2;
+      border-left: 4px solid #ef4444;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 4px;
+    }
+
+    .warning strong {
+      color: #991b1b;
+      font-size: 1.1rem;
+    }
+
+    .feature-box {
+      background: #f0fdf4;
+      border: 2px solid #10b981;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+
+    .feature-box h4 {
+      color: #065f46;
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+    }
+
+    code {
+      background: #f3f4f6;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
+      color: #667eea;
+      font-size: 0.9rem;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      background: #667eea;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: 600;
+      margin-top: 20px;
+      transition: background 0.3s;
+    }
+
+    .btn:hover {
+      background: #5568d3;
+    }
+
+    ul, ol {
+      margin-left: 25px;
+      margin-top: 10px;
+    }
+
+    li {
+      margin-bottom: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+
+    th, td {
+      padding: 15px;
+      text-align: left;
+      border: 1px solid #e5e7eb;
+    }
+
+    th {
+      background: #f9fafb;
+      font-weight: 600;
+      color: #374151;
+    }
+
+    tr:hover {
+      background: #f9fafb;
+    }
+
+    .keyboard-key {
+      background: #374151;
+      color: white;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 0.85rem;
+      border: 1px solid #6b7280;
+    }
+
+    .example-box {
+      background: #1f2937;
+      color: #10b981;
+      padding: 20px;
+      border-radius: 8px;
+      font-family: 'Courier New', monospace;
+      overflow-x: auto;
+      margin: 15px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🔄 XML to JSON Converter</h1>
+      <p>Complete User Guide & Documentation</p>
+    </div>
+
+    <div class="content">
+      <!-- Quick Start -->
+      <div class="section">
+        <h2>🚀 Quick Start Guide</h2>
+        
+        <h3>What Does This Tool Do?</h3>
+        <p>The XML to JSON Converter transforms XML files into JSON format automatically. It's perfect for developers, data analysts, and anyone working with APIs or data integration.</p>
+
+        <div class="feature-box">
+          <h4>✨ Key Features:</h4>
+          <ul>
+            <li><strong>Automatic Conversion:</strong> Converts as soon as you load or edit files</li>
+            <li><strong>Multi-File Support:</strong> Handle multiple files with tabs</li>
+            <li><strong>Change Highlighting:</strong> All changes persist and accumulate until download</li>
+            <li><strong>JSON Validation:</strong> Ensures output is properly formatted</li>
+            <li><strong>Edit & Re-Convert:</strong> Edit XML directly and watch it update</li>
+            <li><strong>Integrated Editor:</strong> Open JSON in full editor for advanced editing</li>
+            <li><strong>Theme Options:</strong> Light or dark editor themes</li>
+          </ul>
+        </div>
+
+        <h3>Your First Conversion (3 Simple Steps)</h3>
+        <div class="step">
+          <strong>Step 1:</strong> Click <code>📁 Load XML File</code> and select your XML file
+        </div>
+        <div class="step">
+          <strong>Step 2:</strong> Watch it automatically convert to JSON (happens instantly!)
+        </div>
+        <div class="step">
+          <strong>Step 3:</strong> Click <code>⬇️ Download JSON</code> to save your converted file
+        </div>
+
+        <div class="tip">
+          <strong>💡 Pro Tip:</strong> That's it! No "Convert" button needed - conversion happens automatically as soon as you load files. You can go straight from loading to downloading!
+        </div>
+      </div>
+
+      <!-- Interface Guide -->
+      <div class="section">
+        <h2>🎨 Understanding the Interface</h2>
+
+        <h3>Main Toolbar Buttons</h3>
+        <table>
+          <tr>
+            <th>Button</th>
+            <th>What It Does</th>
+            <th>When to Use</th>
+          </tr>
+          <tr>
+            <td><code>📁 Load XML File</code></td>
+            <td>Opens file browser to select one XML file</td>
+            <td>When you want to convert a single file</td>
+          </tr>
+          <tr>
+            <td><code>📁 Load Multiple Files</code></td>
+            <td>Opens file browser to select several XML files at once</td>
+            <td>When you need to convert many files (creates tabs for each)</td>
+          </tr>
+          <tr>
+            <td><code>🔄 Re-Convert</code></td>
+            <td>Manually re-runs conversion on current file</td>
+            <td>If you edited XML and want to force a refresh</td>
+          </tr>
+          <tr>
+            <td><code>⬇️ Download JSON</code></td>
+            <td>Downloads converted JSON file to your computer</td>
+            <td>When you're happy with the conversion and want to save it</td>
+          </tr>
+          <tr>
+            <td><code>🗑️ Clear</code></td>
+            <td>Removes all files and starts fresh</td>
+            <td>When you want to start over with new files</td>
+          </tr>
+          <tr>
+            <td><code>❓ Help</code></td>
+            <td>Opens this help guide in a new tab</td>
+            <td>Anytime you need assistance or want to learn more</td>
+          </tr>
+        </table>
+
+        <h3>Stats Bar (Top of Editor)</h3>
+        <p>Shows real-time information about your conversion:</p>
+        <table>
+          <tr>
+            <th>Stat</th>
+            <th>What It Means</th>
+          </tr>
+          <tr>
+            <td><strong>Files</strong></td>
+            <td>Shows converted/total (e.g., "3/5" means 3 out of 5 files converted)</td>
+          </tr>
+          <tr>
+            <td><strong>XML Size</strong></td>
+            <td>Size of the current XML file in kilobytes</td>
+          </tr>
+          <tr>
+            <td><strong>JSON Size</strong></td>
+            <td>Size of the converted JSON file</td>
+          </tr>
+          <tr>
+            <td><strong>Size Change</strong></td>
+            <td>Percentage difference (green = smaller, red = larger)</td>
+          </tr>
+          <tr>
+            <td><strong>Status</strong></td>
+            <td>✓ Converted (green) or ⏳ Ready (orange)</td>
+          </tr>
+        </table>
+
+        <h3>Tab System</h3>
+        <p>When you load multiple files, each gets its own tab:</p>
+        <ul>
+          <li><strong>XML Tabs (Left Side):</strong> Click to view/edit different XML files</li>
+          <li><strong>JSON Tabs (Right Side):</strong> Click to view converted JSON
+            <ul>
+              <li>✓ Green checkmark = Successfully converted</li>
+              <li>✗ Red X = Conversion error</li>
+            </ul>
+          </li>
+          <li><strong>Close Tab:</strong> Click the × on any tab to remove that file</li>
+          <li><strong>Active Tab:</strong> Has blue underline showing which file you're viewing</li>
+        </ul>
+
+        <h3>Theme Toggle</h3>
+        <p>Choose your preferred editor appearance:</p>
+        <ul>
+          <li><strong>☀️ Light Theme:</strong> White background, dark text - easy on eyes in bright rooms</li>
+          <li><strong>🌙 Dark Theme:</strong> Dark background, green text - reduces eye strain in low light</li>
+        </ul>
+        <div class="tip">
+          <strong>💡 Your Choice is Saved:</strong> The theme you select will be remembered next time you open the converter!
+        </div>
+      </div>
+
+      <!-- Working with Files -->
+      <div class="section">
+        <h2>📂 Working with Files</h2>
+
+        <h3>Loading a Single File</h3>
+        <div class="step">
+          <strong>Step 1:</strong> Click <code>📁 Load XML File</code>
+        </div>
+        <div class="step">
+          <strong>Step 2:</strong> Browse to your XML file and click "Open"
+        </div>
+        <div class="step">
+          <strong>Step 3:</strong> File loads and converts automatically within 1 second!
+        </div>
+        <div class="step">
+          <strong>Step 4:</strong> View the JSON output on the right side
+        </div>
+
+        <h3>Loading Multiple Files (Batch Mode)</h3>
+        <div class="step">
+          <strong>Step 1:</strong> Click <code>📁 Load Multiple Files</code>
+        </div>
+        <div class="step">
+          <strong>Step 2:</strong> Hold <span class="keyboard-key">Ctrl</span> (Windows) or <span class="keyboard-key">Cmd</span> (Mac) and click multiple XML files
+        </div>
+        <div class="step">
+          <strong>Step 3:</strong> Click "Open" - each file gets its own tab
+        </div>
+        <div class="step">
+          <strong>Step 4:</strong> All files convert automatically as they load
+        </div>
+        <div class="step">
+          <strong>Step 5:</strong> Click between tabs to view each conversion
+        </div>
+        <div class="step">
+          <strong>Step 6:</strong> Click <code>⬇️ Download All (X)</code> to get a ZIP file with all JSON files
+        </div>
+
+        <div class="tip">
+          <strong>💡 Smart Button:</strong> The download button changes based on how many files you have:
+          <ul>
+            <li>1 file: "⬇️ Download JSON" - downloads single .json file</li>
+            <li>Multiple files: "⬇️ Download All (5)" - downloads ZIP with all files</li>
+          </ul>
+        </div>
+
+        <h3>Editing XML Directly</h3>
+        <p>You can edit the XML right in the browser:</p>
+        <div class="step">
+          <strong>Step 1:</strong> Click in the left XML panel
+        </div>
+        <div class="step">
+          <strong>Step 2:</strong> Type your changes or paste new XML
+        </div>
+        <div class="step">
+          <strong>Step 3:</strong> Wait 1 second - conversion happens automatically!
+        </div>
+        <div class="step">
+          <strong>Step 4:</strong> Changed lines appear with <strong style="background: #d1fae5; padding: 2px 6px;">green highlighting</strong> in the JSON
+        </div>
+
+        <div class="feature-box">
+          <h4>🎨 Cumulative Change Highlighting:</h4>
+          <p>When you edit XML and it re-converts, all changed lines are highlighted with a green background and green left border.</p>
+          <ul>
+            <li><strong>Cumulative Tracking:</strong> ALL changes from the original version stay highlighted, not just the latest edit</li>
+            <li><strong>Change Counter:</strong> Banner shows "✨ Changes Made (7)" indicating number of changed lines</li>
+            <li><strong>Auto-Scroll:</strong> Automatically scrolls to center the most recent change in your viewport</li>
+            <li><strong>Persists Until Download:</strong> Highlights remain visible across multiple edits until you download the file</li>
+            <li><strong>Clear Highlights Button:</strong> Click to reset the baseline and clear all highlights manually</li>
+            <li><strong>Auto-Clear on Download:</strong> Downloading a file automatically clears its highlights</li>
+          </ul>
+          <p><strong>Example:</strong> Edit line 5, then line 10, then line 15 - all three lines stay highlighted! Make 20 edits throughout the day - all 20 changed lines remain visible.</p>
+        </div>
+      </div>
+
+      <!-- JSON Editor Integration -->
+      <div class="section">
+        <h2>✏️ Advanced Editing with JSON Editor</h2>
+
+        <h3>Why Use the JSON Editor?</h3>
+        <p>After converting XML to JSON, you might want to make additional edits. The integrated JSON Editor provides:</p>
+        <ul>
+          <li>User-friendly card interface for editing fields</li>
+          <li>Add/delete records easily</li>
+          <li>Search functionality</li>
+          <li>Statistics dashboard</li>
+          <li>View raw JSON or edit visually</li>
+        </ul>
+
+        <h3>How to Use It</h3>
+        <div class="step">
+          <strong>Step 1:</strong> Convert your XML file (it happens automatically)
+        </div>
+        <div class="step">
+          <strong>Step 2:</strong> Click <code>✏️ Edit in JSON Editor</code> button (top right of JSON panel)
+        </div>
+        <div class="step">
+          <strong>Step 3:</strong> JSON Editor opens in a new tab with your data already loaded
+        </div>
+        <div class="step">
+          <strong>Step 4:</strong> Make your edits using the card interface
+        </div>
+        <div class="step">
+          <strong>Step 5:</strong> Click <code>💾 Save Changes</code> in the editor
+        </div>
+        <div class="step">
+          <strong>Step 6:</strong> Changes sync back to the converter automatically!
+        </div>
+        <div class="step">
+          <strong>Step 7:</strong> Download your final JSON file
+        </div>
+
+        <div class="tip">
+          <strong>💡 Two-Way Sync:</strong> The converter and editor communicate! When you save in the editor, your changes appear back in the converter. You can keep both tabs open and work between them.
+        </div>
+      </div>
+
+      <!-- Error Handling -->
+      <div class="section">
+        <h2>🔍 Troubleshooting & Error Messages</h2>
+
+        <h3>Common Error Messages</h3>
+
+        <div class="warning">
+          <strong>⚠️ "Invalid XML syntax"</strong><br><br>
+          <strong>What it means:</strong> Your XML file has formatting errors.<br>
+          <strong>Common causes:</strong>
+          <ul>
+            <li>Missing closing tag (e.g., <code>&lt;item&gt;</code> without <code>&lt;/item&gt;</code>)</li>
+            <li>Mismatched tags (e.g., <code>&lt;item&gt;</code> closed with <code>&lt;/items&gt;</code>)</li>
+            <li>Special characters not escaped (use <code>&amp;lt;</code> for <code>&lt;</code>, <code>&amp;amp;</code> for <code>&amp;</code>)</li>
+            <li>Unclosed attributes (e.g., <code>&lt;item name="test&gt;</code> missing closing quote)</li>
+          </ul>
+          <strong>How to fix:</strong>
+          <ol>
+            <li>Open your XML file in a text editor</li>
+            <li>Look for the errors mentioned above</li>
+            <li>Use an XML validator online to find specific problems</li>
+            <li>Fix the errors and reload the file</li>
+          </ol>
+        </div>
+
+        <div class="warning">
+          <strong>⚠️ "JSON formatting error"</strong><br><br>
+          <strong>What it means:</strong> The conversion process created invalid JSON (rare).<br>
+          <strong>How to fix:</strong>
+          <ol>
+            <li>Try the <code>🔄 Re-Convert</code> button</li>
+            <li>If that doesn't work, check your XML for unusual characters</li>
+            <li>Report the issue if it persists</li>
+          </ol>
+        </div>
+
+        <div class="warning">
+          <strong>⚠️ "No JSON to edit. Convert XML first."</strong><br><br>
+          <strong>What it means:</strong> You clicked "Edit in JSON Editor" but there's no converted JSON yet.<br>
+          <strong>How to fix:</strong>
+          <ol>
+            <li>Make sure your XML loaded successfully</li>
+            <li>Wait for automatic conversion to complete (1 second)</li>
+            <li>Look for green ✓ checkmark on JSON tab</li>
+            <li>Then try "Edit in JSON Editor" again</li>
+          </ol>
+        </div>
+
+        <h3>File Won't Load</h3>
+        <p><strong>Possible Reasons:</strong></p>
+        <ul>
+          <li><strong>Wrong file type:</strong> Make sure file has .xml extension</li>
+          <li><strong>File is corrupted:</strong> Try opening in a text editor to verify it's readable</li>
+          <li><strong>File is too large:</strong> Browser may struggle with very large files (>10MB)</li>
+          <li><strong>File is binary:</strong> Tool only works with text-based XML files</li>
+        </ul>
+
+        <h3>Tab Count Doesn't Make Sense</h3>
+        <p><strong>Example:</strong> Loaded 1 file but stats show "1/2"</p>
+        <p><strong>Cause:</strong> Empty "Untitled" tab may still be counted</p>
+        <p><strong>Fix:</strong> Click the × to close any empty tabs</p>
+
+        <h3>Changes Not Showing After Edit</h3>
+        <p><strong>Check these:</strong></p>
+        <ul>
+          <li>Wait 1 second after typing (auto-convert has a delay)</li>
+          <li>Look for green highlighting showing changes</li>
+          <li>Check JSON tab has green ✓ (means conversion succeeded)</li>
+          <li>If red ✗ appears, there's an XML error - check error message</li>
+        </ul>
+      </div>
+
+      <!-- Best Practices -->
+      <div class="section">
+        <h2>⭐ Best Practices & Tips</h2>
+
+        <h3>Before Converting</h3>
+        <div class="tip">
+          <strong>💡 Validate Your XML:</strong> Use an online XML validator before converting to catch errors early. This saves time and frustration!
+        </div>
+
+        <div class="tip">
+          <strong>💡 Backup Original Files:</strong> Always keep a copy of your original XML files. While the converter is safe, it's good practice to have backups.
+        </div>
+
+        <div class="tip">
+          <strong>💡 Organize Your Files:</strong> Name your XML files clearly before converting. The converter uses your original filename for the JSON output.
+        </div>
+
+        <h3>During Conversion</h3>
+        <div class="tip">
+          <strong>💡 Watch the Stats:</strong> The stats bar gives you instant feedback about file sizes and conversion status. Green checkmarks mean success!
+        </div>
+
+        <div class="tip">
+          <strong>💡 Use Tabs Wisely:</strong> When working with multiple files, close tabs you're done with (click ×) to keep your workspace clean.
+        </div>
+
+        <div class="tip">
+          <strong>💡 Test Edits on Copies:</strong> If you're editing XML directly in the converter, consider working on a copy of your file first.
+        </div>
+
+        <h3>After Conversion</h3>
+        <div class="tip">
+          <strong>💡 Verify Your JSON:</strong> After downloading, open the JSON file in a text editor or validator to ensure it looks correct.
+        </div>
+
+        <div class="tip">
+          <strong>💡 Use JSON Editor for Complex Edits:</strong> If you need to make many changes, use the "Edit in JSON Editor" feature - it's much easier than editing raw JSON.
+        </div>
+
+        <div class="tip">
+          <strong>💡 Batch Process Similar Files:</strong> If you have many XML files with the same structure, load them all at once and download as ZIP - huge time saver!
+        </div>
+
+        <h3>Performance Tips</h3>
+        <ul>
+          <li><strong>Large Files:</strong> Files over 5MB may take a few seconds to convert - be patient!</li>
+          <li><strong>Many Files:</strong> Loading 50+ files at once may be slow - consider batching in groups of 20-30</li>
+          <li><strong>Browser Memory:</strong> If the browser becomes slow, click "Clear" and start fresh</li>
+        </ul>
+      </div>
+
+      <!-- Keyboard Shortcuts -->
+      <div class="section">
+        <h2>⌨️ Keyboard Shortcuts</h2>
+        <table>
+          <tr>
+            <th>Action</th>
+            <th>Shortcut</th>
+          </tr>
+          <tr>
+            <td>Select multiple files</td>
+            <td><span class="keyboard-key">Ctrl</span> + Click (Windows) or <span class="keyboard-key">Cmd</span> + Click (Mac)</td>
+          </tr>
+          <tr>
+            <td>Copy JSON output</td>
+            <td>Click in JSON panel, then <span class="keyboard-key">Ctrl</span>+<span class="keyboard-key">A</span> to select, <span class="keyboard-key">Ctrl</span>+<span class="keyboard-key">C</span> to copy</td>
+          </tr>
+          <tr>
+            <td>Close current tab</td>
+            <td>Click the × on the tab</td>
+          </tr>
+          <tr>
+            <td>Switch between tabs</td>
+            <td>Click on tab name or use <span class="keyboard-key">Tab</span> key to navigate</td>
+          </tr>
+          <tr>
+            <td>Open browser console (for debugging)</td>
+            <td><span class="keyboard-key">F12</span> or <span class="keyboard-key">Ctrl</span>+<span class="keyboard-key">Shift</span>+<span class="keyboard-key">I</span></td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Examples -->
+      <div class="section">
+        <h2>📋 Common Use Cases</h2>
+
+        <h3>Use Case 1: API Data Transformation</h3>
+        <p><strong>Scenario:</strong> You received XML data from an API but need JSON for your JavaScript application.</p>
+        <div class="step">
+          1. Save the API response as an .xml file
+        </div>
+        <div class="step">
+          2. Load it in the converter
+        </div>
+        <div class="step">
+          3. Download the JSON
+        </div>
+        <div class="step">
+          4. Use the JSON in your app
+        </div>
+
+        <h3>Use Case 2: Data Migration</h3>
+        <p><strong>Scenario:</strong> Migrating data from an old XML-based system to a new JSON-based database.</p>
+        <div class="step">
+          1. Export all data as XML files from old system
+        </div>
+        <div class="step">
+          2. Use "Load Multiple Files" to batch convert
+        </div>
+        <div class="step">
+          3. Download all as ZIP
+        </div>
+        <div class="step">
+          4. Import JSON files to new system
+        </div>
+
+        <h3>Use Case 3: Data Cleaning</h3>
+        <p><strong>Scenario:</strong> Your XML has data that needs editing before using elsewhere.</p>
+        <div class="step">
+          1. Load XML file
+        </div>
+        <div class="step">
+          2. Click "Edit in JSON Editor"
+        </div>
+        <div class="step">
+          3. Use the card interface to edit/clean data
+        </div>
+        <div class="step">
+          4. Save and download clean JSON
+        </div>
+
+        <h3>Use Case 4: Format Comparison</h3>
+        <p><strong>Scenario:</strong> You want to see how your XML looks when structured as JSON.</p>
+        <div class="step">
+          1. Load or paste your XML
+        </div>
+        <div class="step">
+          2. View side-by-side comparison
+        </div>
+        <div class="step">
+          3. Edit XML to see how it affects JSON structure
+        </div>
+        <div class="step">
+          4. Green highlighting shows you exactly what changes
+        </div>
+      </div>
+
+      <!-- Technical Details -->
+      <div class="section">
+        <h2>🔧 Technical Details</h2>
+
+        <h3>Conversion Rules</h3>
+        <p>Understanding how XML converts to JSON:</p>
+        
+        <h4>XML Attributes</h4>
+        <div class="example-box">
+&lt;person name="John" age="30"&gt;
+  &lt;city&gt;New York&lt;/city&gt;
+&lt;/person&gt;
+        </div>
+        <p>Converts to:</p>
+        <div class="example-box">
+{
+  "person": {
+    "@attributes": {
+      "name": "John",
+      "age": "30"
+    },
+    "city": "New York"
+  }
+}
+        </div>
+
+        <h4>Repeated Elements (Arrays)</h4>
+        <div class="example-box">
+&lt;people&gt;
+  &lt;person&gt;John&lt;/person&gt;
+  &lt;person&gt;Jane&lt;/person&gt;
+&lt;/people&gt;
+        </div>
+        <p>Converts to:</p>
+        <div class="example-box">
+{
+  "people": {
+    "person": ["John", "Jane"]
+  }
+}
+        </div>
+
+        <h4>Text Content</h4>
+        <div class="example-box">
+&lt;message&gt;Hello World&lt;/message&gt;
+        </div>
+        <p>Converts to:</p>
+        <div class="example-box">
+{
+  "message": "Hello World"
+}
+        </div>
+
+        <h3>Browser Compatibility</h3>
+        <p>This tool works in all modern browsers:</p>
+        <ul>
+          <li>✓ Chrome 90+</li>
+          <li>✓ Firefox 88+</li>
+          <li>✓ Safari 14+</li>
+          <li>✓ Edge 90+</li>
+        </ul>
+
+        <h3>File Size Limits</h3>
+        <ul>
+          <li><strong>Recommended:</strong> Files under 5MB work best</li>
+          <li><strong>Maximum:</strong> Up to 50MB (may be slow)</li>
+          <li><strong>Batch:</strong> Up to 100 files at once</li>
+        </ul>
+
+        <h3>Data Privacy</h3>
+        <div class="tip">
+          <strong>🔒 Your Data is Safe:</strong> All conversion happens in your browser. No data is uploaded to any server. Your files stay on your computer!
+        </div>
+      </div>
+
+      <!-- FAQ -->
+      <div class="section">
+        <h2>❓ Frequently Asked Questions</h2>
+
+        <h3>Q: Do I need to install anything?</h3>
+        <p><strong>A:</strong> No! This is a web-based tool that runs entirely in your browser. Just open the HTML file.</p>
+
+        <h3>Q: Is my data sent to a server?</h3>
+        <p><strong>A:</strong> No. All conversion happens locally in your browser. Your files never leave your computer.</p>
+
+        <h3>Q: Can I convert JSON back to XML?</h3>
+        <p><strong>A:</strong> This tool converts XML → JSON only. For JSON → XML, you'd need a different tool.</p>
+
+        <h3>Q: Why doesn't the "Convert" button do anything?</h3>
+        <p><strong>A:</strong> Conversion happens automatically! The button is labeled "Re-Convert" and is only needed if you want to force a refresh.</p>
+
+        <h3>Q: Can I use this offline?</h3>
+        <p><strong>A:</strong> Yes! Download the HTML file and open it locally. It works without internet (except for the JSZip library for batch downloads).</p>
+
+        <h3>Q: What if my XML has special characters?</h3>
+        <p><strong>A:</strong> The converter handles UTF-8 encoding. Special characters should work fine, but ensure they're properly escaped in your XML.</p>
+
+        <h3>Q: Can I edit the JSON directly?</h3>
+        <p><strong>A:</strong> The JSON panel is read-only to prevent errors. Use "Edit in JSON Editor" for a full editing interface.</p>
+
+        <h3>Q: Why are some lines highlighted in green?</h3>
+        <p><strong>A:</strong> Green highlighting shows which lines changed from the original version. The highlights are cumulative - ALL changes you make stay highlighted until you download the file or click "Clear Highlights."</p>
+
+        <h3>Q: How do I remove the green highlights?</h3>
+        <p><strong>A:</strong> Three ways: (1) Download the file - auto-clears highlights, (2) Click the "Clear Highlights" button in the green banner, or (3) Close and reload to start fresh.</p>
+
+        <h3>Q: Why does it auto-scroll when I edit?</h3>
+        <p><strong>A:</strong> After each edit, the JSON output automatically scrolls to center your most recent change. This helps you quickly see what your edit affected without manually searching.</p>
+      </div>
+
+      <a href="xml-to-json-converter.html" class="btn">← Back to Converter</a>
+    </div>
+  </div>
+</body>
+</html>
